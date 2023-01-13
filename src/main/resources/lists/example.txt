@@ -1,0 +1,12 @@
+This is an example
+lists file
+each line in
+this file is a
+phrase that can be
+asked by the ChatGames plugin.
+
+Empty lines like that ^ are ignored
+# Lines that start with '#' are also ignored (like comments)
+# Note: This does not happen to any phrases that contain a '#'
+# If you want a '#' at the beginning of your line, put a space before it, like the following line
+ # This will not be commented out

@@ -1,0 +1,77 @@
+# Configuration file for ChatGames
+# If you need any assistance, please feel free to join my Discord server: https://discord.gg/qsUP2t5VpW
+
+# Seconds between games being broadcast
+# Default is 300 (5 minutes)
+rotation-time: 300
+# Seconds before the game times out after being started (can't be larger than `rotation-time`)
+# Default is 60 (1 minute)
+timeout: 60
+# If the server should shuffle the games
+shuffled: false
+# The list of games that should be played.
+# When `shuffled` is false: This lists the order in which the game is played (they can appear multiple times in the list)
+# When `shuffled` is true: This lists the games that are allowed to be played (Appearing multiple times in the list increasing the chances of them being played)
+game-list:
+  - fill-in-the-blanks
+  - scramble
+
+# This is the reward given to the player after successfully winning a game
+reward:
+  # The identifier of the item (just like in /give)
+  item: minecraft:diamond
+  # The amount of the item
+  # If set to a value <= 0, it gives no items to the player
+  item_amount: 1
+
+  # The command to be run when a player wins a game.  Runs as the server console
+  # Use %player% for the player's name.
+  # If left blank, no command will be run
+  command: ''
+
+  # Sends a player money using Vault (Not Yet Implemented)
+  # If set to 0, no money will be sent.
+  money: 0
+
+# Lists of words for the games to choose from.
+# Each entry in this list has a simple format: <source>:<name>
+# There are three sources that one can choose from: minecraft, chatgames, and custom
+# for minecraft, one can use minecraft:blocks, minecraft:items, or minecraft:mobs.
+#     By default, these use the en_us version for translations, but different translations can be added by copying one of minecraft's lang files to a file called `translations.json` in ChatGames folder
+#     I have a guide for getting these lang files: https://blog.funnyboyroks.com/getting-mc-lang-files
+# for chatgames, one can use chatgames:countries.  More may be added in the future.
+# for custom, one can use any custom list they want.  To use a custom list, put it in the `lists/` folder and use the filename for <name>
+#     Ex: if I had a file called `my_list.txt`, I'd use `custom:my_list.txt` in the list.
+word-lists:
+  - minecraft:blocks
+  - minecraft:items
+  - chatgames:countries
+#    - custom:my_list.txt
+
+#===================================#
+#                                   #
+#        Games Configuration        #
+#                                   #
+#===================================#
+
+# Fill in the blanks
+#
+# In this game, the word has some number of characters removed and replaced with '_'.
+# The goal for the player is to guess the phrase and type it into chat.
+fill-in-the-blanks:
+  enabled: true
+  # The amount of blanks to put.  Accepts an integer or a percent.
+  # 5% -> 5% of the word is replaced by spaces
+  # 5  -> 5 characters become spaces
+  amount: 50%
+
+  # Scramble
+  #
+  # In this game, the word is shuffled in some way
+  # The goal for the player is to guess the phrase and type it into the chat.
+scramble:
+  enabled: true
+  # The method that the word will be scrambled.
+  # Can be set to 'word', 'character', or 'split-space'
+  # Which shuffle the word order, character order, or shuffles characters and keeps word order, respectively
+  scramble-method: word

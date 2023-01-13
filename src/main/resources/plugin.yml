@@ -1,0 +1,15 @@
+name: ChatGames
+version: '${project.version}'
+main: com.funnyboyroks.chatgames.ChatGames
+api-version: 1.19
+softdepend: [ Vault ]
+authors: [ funnyboy_roks ]
+description: Play games in your Minecraft chat!
+permissions:
+  chatgames.command.chatgames:
+    description: Permission to use the /chatgames command
+    default: op
+commands:
+  chatgames:
+    usage: /chatgames
+    permission: chatgames.command.chatgames
