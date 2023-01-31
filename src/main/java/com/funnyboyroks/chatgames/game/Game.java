@@ -21,4 +21,8 @@ public abstract class Game {
     public abstract void broadcastWin(Player player);
 
     public abstract void timeout();
+
+    public abstract String name();
+
+    public abstract String word();
 }

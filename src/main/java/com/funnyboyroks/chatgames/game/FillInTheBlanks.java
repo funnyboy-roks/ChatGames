@@ -2,6 +2,7 @@ package com.funnyboyroks.chatgames.game;
 
 import com.funnyboyroks.chatgames.ChatGames;
 import com.funnyboyroks.chatgames.Util;
+import com.funnyboyroks.chatgames.data.Messager;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -41,9 +42,10 @@ public class FillInTheBlanks extends Game {
         this.active = true;
         Audience aud = Audience.audience(Bukkit.getOnlinePlayers());
 
-        aud.sendMessage(
-            Component.text("You have %s seconds to fill in the blanks!\n> ".formatted(ChatGames.config().timeout), NamedTextColor.GOLD)
-                .append(Component.text(blanked, NamedTextColor.AQUA))
+        Messager.send(
+            aud, "games.fitb.prompt",
+            "WORD", blanked,
+            "TIME", ChatGames.config().timeout + ""
         );
     }
 
@@ -53,11 +55,20 @@ public class FillInTheBlanks extends Game {
         this.active = false;
         Audience aud = Audience.audience(Bukkit.getOnlinePlayers());
 
-        aud.sendMessage(
-            Component.text("Nobody answered in time! The correct answer was ".formatted(ChatGames.config().timeout), NamedTextColor.GOLD)
-                .append(Component.text(correct, NamedTextColor.AQUA))
-                .append(Component.text("."))
+        Messager.send(
+            aud, "games.fitb.timeout",
+            "WORD", correct
         );
+    }
+
+    @Override
+    public String name() {
+        return Messager.get("games.fitb.name");
+    }
+
+    @Override
+    public String word() {
+        return this.active ? blanked : correct;
     }
 
     @Override
@@ -81,11 +92,10 @@ public class FillInTheBlanks extends Game {
     @Override
     public void broadcastWin(Player player) {
         Audience aud = Audience.audience(Bukkit.getOnlinePlayers());
-        aud.sendMessage(
-            player.displayName()
-                .append(Component.text(" guessed the word ", NamedTextColor.GOLD))
-                .append(Component.text(correct, NamedTextColor.AQUA))
-                .append(Component.text(" correctly!", NamedTextColor.GOLD))
+        Messager.send(
+            aud, "games.fitb.win",
+            "WORD", correct,
+            "NAME", player.getName()
         );
     }
 

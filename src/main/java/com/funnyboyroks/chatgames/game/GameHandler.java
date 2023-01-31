@@ -40,7 +40,7 @@ public class GameHandler implements Listener {
 
         boolean guess = this.currentGame().guess(message, player);
         if (guess) {
-            ChatGames.config().runReward(player);
+            ChatGames.config().giveReward(player);
             event.setCancelled(true);
         }
     }
@@ -79,7 +79,7 @@ public class GameHandler implements Listener {
     }
 
     public void reload() {
-
+        this.nextGame();
     }
 
 }

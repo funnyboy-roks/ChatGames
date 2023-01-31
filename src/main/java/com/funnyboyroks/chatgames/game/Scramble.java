@@ -2,6 +2,7 @@ package com.funnyboyroks.chatgames.game;
 
 import com.funnyboyroks.chatgames.ChatGames;
 import com.funnyboyroks.chatgames.Util;
+import com.funnyboyroks.chatgames.data.Messager;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -29,9 +30,10 @@ public class Scramble extends Game {
         this.active = true;
         Audience aud = Audience.audience(Bukkit.getOnlinePlayers());
 
-        aud.sendMessage(
-            Component.text("You have %s seconds to unscramble this word!\n> ".formatted(ChatGames.config().timeout), NamedTextColor.GOLD)
-                .append(Component.text(scrambled, NamedTextColor.AQUA))
+        Messager.send(
+            aud, "games.scramble.prompt",
+            "WORD", scrambled,
+            "TIME", ChatGames.config().timeout + ""
         );
     }
 
@@ -41,11 +43,20 @@ public class Scramble extends Game {
         this.active = false;
         Audience aud = Audience.audience(Bukkit.getOnlinePlayers());
 
-        aud.sendMessage(
-            Component.text("Nobody answered in time! The correct answer was ".formatted(ChatGames.config().timeout), NamedTextColor.GOLD)
-                .append(Component.text(correct, NamedTextColor.AQUA))
-                .append(Component.text("."))
+        Messager.send(
+            aud, "games.scramble.timeout",
+            "WORD", correct
         );
+    }
+
+    @Override
+    public String name() {
+        return Messager.get("games.scramble.name");
+    }
+
+    @Override
+    public String word() {
+        return this.active ? scrambled : correct;
     }
 
     @Override
@@ -68,11 +79,11 @@ public class Scramble extends Game {
     @Override
     public void broadcastWin(Player player) {
         Audience aud = Audience.audience(Bukkit.getOnlinePlayers());
-        aud.sendMessage(
-            player.displayName()
-                .append(Component.text(" unscrambled the word ", NamedTextColor.GOLD))
-                .append(Component.text(correct, NamedTextColor.AQUA))
-                .append(Component.text(" correctly!", NamedTextColor.GOLD))
+
+        Messager.send(
+            aud, "games.scramble.win",
+            "WORD", scrambled,
+            "NAME", player.getName()
         );
     }
 

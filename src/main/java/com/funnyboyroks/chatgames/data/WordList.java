@@ -2,13 +2,18 @@ package com.funnyboyroks.chatgames.data;
 
 import com.funnyboyroks.chatgames.ChatGames;
 import com.funnyboyroks.chatgames.Util;
+import com.google.gson.JsonParser;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
-import java.io.InputStream;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WordList {
 
@@ -29,6 +34,7 @@ public class WordList {
     }
 
     private static String[] getWords(String key) {
+        key = key.toLowerCase();
         int colonPos = key.indexOf(":");
         String namespace;
         if (colonPos == -1) { // Count "key" as "custom:key"
@@ -102,5 +108,20 @@ public class WordList {
 
     public int size() {
         return this.words.stream().mapToInt(s -> s.length).sum();
+    }
+
+    public String upload() throws IOException {
+        String toUpload = this.words.stream().map(s -> String.join("\n", s)).collect(Collectors.joining("\n\n"));
+
+        URL url = new URL("https://api.pastes.dev/post");
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        http.setRequestProperty("User-Agent", "ChatGames by funnyboy_roks");
+        http.setDoInput(true);
+        http.setDoOutput(true);
+        try (OutputStream os = http.getOutputStream()) {
+            os.write(toUpload.getBytes());
+        }
+        String s = new String(http.getInputStream().readAllBytes());
+        return JsonParser.parseString(s).getAsJsonObject().get("key").getAsString();
     }
 }

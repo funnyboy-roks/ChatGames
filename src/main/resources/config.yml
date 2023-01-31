@@ -29,7 +29,7 @@ reward:
   # If left blank, no command will be run
   command: ''
 
-  # Sends a player money using Vault (Not Yet Implemented)
+  # Sends a player money using Vault
   # If set to 0, no money will be sent.
   money: 0
 
@@ -41,7 +41,7 @@ reward:
 #     I have a guide for getting these lang files: https://blog.funnyboyroks.com/getting-mc-lang-files
 # for chatgames, one can use chatgames:countries.  More may be added in the future.
 # for custom, one can use any custom list they want.  To use a custom list, put it in the `lists/` folder and use the filename for <name>
-#     Ex: if I had a file called `my_list.txt`, I'd use `custom:my_list.txt` in the list.
+#     Ex: If one had a file called `my_list.txt`, they would use `custom:my_list.txt` in the list.
 word-lists:
   - minecraft:blocks
   - minecraft:items

@@ -1,8 +1,12 @@
 package com.funnyboyroks.chatgames.command;
 
 import com.funnyboyroks.chatgames.ChatGames;
+import com.funnyboyroks.chatgames.data.Messager;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -19,17 +23,35 @@ public class CommandChatGames implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
-            return false; // TODO: make this print the help message
+            return false; // TODO: make this print a help message
         }
-        switch (Subcommand.fromFormatted(args[0])) {
+        Subcommand sc = Subcommand.fromFormatted(args[0]);
+        if(sc == null) {
+            return false;
+        }
+        if(!sender.hasPermission("chatgames.command.chatgames." + sc.toFormatted())) {
+            Messager.send(sender, "command.no-permission");
+        }
+        switch (sc) {
             case RELOAD -> {
                 ChatGames.reload();
-                sender.sendMessage(Component.text("ChatGames reloaded!", NamedTextColor.GREEN));
+                Messager.send(sender, "command.reload.success");
             }
-            case RANDOM -> {
-                sender.sendMessage(ChatGames.config().wordList.randomWord());
+            case LISTS -> {
+                Messager.send(sender, "command.lists.uploading");
+                Bukkit.getScheduler().runTaskAsynchronously(ChatGames.instance(), () -> {
+                    try {
+                        String key = ChatGames.config().wordList.upload();
+                        String url = "https://pastes.dev/" + key;
+
+                        Messager.send(sender, "command.lists.success", "URL", url);
+                    } catch (Exception e) {
+                        sender.sendMessage(Component.text("There was an error executing this command.", NamedTextColor.RED));
+                        throw new RuntimeException(e);
+                    }
+                });
             }
-            case RESTART -> {
+            case NEXT -> {
                 ChatGames.gameHandler().nextGame();
             }
         }
@@ -46,8 +68,8 @@ public class CommandChatGames implements CommandExecutor, TabCompleter {
 
     private enum Subcommand {
         RELOAD,
-        RANDOM,
-        RESTART,
+        LISTS,
+        NEXT,
         ;
 
         public String toFormatted() {

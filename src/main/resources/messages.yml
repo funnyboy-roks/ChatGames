@@ -1,0 +1,40 @@
+# The messages for the plugin.
+# These all use MiniMessage.  You can read about this format here: https://docs.adventure.kyori.net/minimessage/format.html
+# Note: If you wish to put a newline, you can use `\n`
+
+command.reload.success: '<green>ChatGames reloaded!'
+
+command.lists.uploading: '<gold>Uploading word lists...'
+# Replacements: $URL$ -> the url that the file was uploaded to
+command.lists.success: '<gold>Word lists uploaded to <blue><underlined><click:open_url:$URL$>$URL$'
+command.no-permission: '<red>You do not have permission to run this command.'
+
+reward.inventory-full: '<red>Your inventory was full so the items were dropped at your location.'
+
+# Prompt for Fill In The Blanks (FITB)
+# Replacements: $WORD$ -> The word after being blanked
+#               $TIME$ -> The seconds that the players have
+games.fitb.prompt: '<gold>You have $TIME$ seconds to fill in the blanks!\n<gold>> <aqua>$WORD$'
+# When the game times out
+# Replacements: $WORD$ -> The word to be revealed
+games.fitb.timeout: '<gold>Nobody guessed the word in time! The word was <aqua>$WORD$'
+# When a player guesses the word correctly
+# Replacements: $WORD$ -> The word to be revealed
+#               $NAME$ -> The name of the player
+games.fitb.win: '<aqua>$NAME$<gold> guessed the word <aqua>$WORD$</aqua> correctly!'
+# The name to show in the PAPI label
+games.fitb.name: 'Fill in the Blanks'
+
+# Prompt for scramble
+# Replacements: $WORD$ -> The word after being scrambled
+#               $TIME$ -> The seconds that the players have
+games.scramble.prompt: '<gold>You have $TIME$ seconds to unscramble this word!\n<gold>> <aqua>$WORD$'
+# When the game times out
+# Replacements: $WORD$ -> The word to be revealed
+games.scramble.timeout: '<gold>Nobody guessed the word in time! The word was <aqua>$WORD$'
+# When a player guesses the word correctly
+# Replacements: $WORD$ -> The word to be revealed
+#               $NAME$ -> The name of the player
+games.scramble.win: '<aqua>$NAME$<gold> guessed the word <aqua>$WORD$</aqua> correctly!'
+# The name to show in the PAPI label
+games.scramble.name: 'Scramble'
