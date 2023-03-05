@@ -38,3 +38,18 @@ games.scramble.timeout: '<gold>Nobody guessed the word in time! The word was <aq
 games.scramble.win: '<aqua>$NAME$<gold> guessed the word <aqua>$WORD$</aqua> correctly!'
 # The name to show in the PAPI label
 games.scramble.name: 'Scramble'
+
+# Prompt for fizzbuzz
+# Replacements: $WORD$ -> The number that the players will need to guess
+#               $TIME$ -> The seconds that the players have
+games.fizzbuzz.prompt: '<gold>You have $TIME$ seconds to FizzBuzz this number!\n<gold>> <aqua>$WORD$'
+# When the game times out
+# Replacements: $WORD$ -> The word to be revealed
+games.fizzbuzz.timeout: '<gold>Nobody guessed the FizzBuzz in time! The word was <aqua>$WORD$'
+# When a player guesses the word correctly
+# Replacements: $WORD$ -> The word to be revealed
+#               $NUM$  -> The number
+#               $NAME$ -> The name of the player
+games.fizzbuzz.win: '<aqua>$NAME$<gold> guessed the FizzBuzz correctly! <aqua>$NUM$ <gold>-></gold> $WORD$</aqua> correctly!'
+# The name to show in the PAPI label
+games.fizzbuzz.name: 'FizzBuzz'

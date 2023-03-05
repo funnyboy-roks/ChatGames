@@ -3,6 +3,7 @@ package com.funnyboyroks.chatgames.data;
 import com.funnyboyroks.chatgames.ChatGames;
 import com.funnyboyroks.chatgames.Util;
 import com.funnyboyroks.chatgames.game.FillInTheBlanks;
+import com.funnyboyroks.chatgames.game.FizzBuzz;
 import com.funnyboyroks.chatgames.game.Game;
 import com.funnyboyroks.chatgames.game.Scramble;
 import com.tchristofferson.configupdater.ConfigUpdater;
@@ -54,6 +55,7 @@ public class PluginConfig {
                     case "fill-in-the-blanks" ->
                         new FillInTheBlanks(config.getConfigurationSection("fill-in-the-blanks"));
                     case "scramble" -> new Scramble(config.getConfigurationSection("scramble"));
+                    case "fizzbuzz" -> new FizzBuzz(config.getConfigurationSection("fizzbuzz"));
                     default -> null;
                 })
                 .filter(Objects::nonNull)

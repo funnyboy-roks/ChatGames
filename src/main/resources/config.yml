@@ -10,11 +10,12 @@ timeout: 60
 # If the server should shuffle the games
 shuffled: false
 # The list of games that should be played.
-# When `shuffled` is false: This lists the order in which the game is played (they can appear multiple times in the list)
-# When `shuffled` is true: This lists the games that are allowed to be played (Appearing multiple times in the list increasing the chances of them being played)
+# When `shuffled` is false: This lists the order in which the games are played (they can appear multiple times in the list)
+# When `shuffled` is true: This lists the games that are allowed to be played (Appearing multiple times in the list increases the chances of them being played)
 game-list:
   - fill-in-the-blanks
   - scramble
+  - fizzbuzz
 
 # This is the reward given to the player after successfully winning a game
 reward:
@@ -65,13 +66,30 @@ fill-in-the-blanks:
   # 5  -> 5 characters become spaces
   amount: 50%
 
-  # Scramble
-  #
-  # In this game, the word is shuffled in some way
-  # The goal for the player is to guess the phrase and type it into the chat.
+# Scramble
+#
+# In this game, the word is shuffled in some way
+# The goal for the player is to guess the phrase and type it into the chat.
 scramble:
   enabled: true
   # The method that the word will be scrambled.
   # Can be set to 'word', 'character', or 'split-space'
   # Which shuffle the word order, character order, or shuffles characters and keeps word order, respectively
   scramble-method: word
+
+# FizzBuzz
+# Requested by Onako2
+#
+# In this game, a random number is chosen and the player must guess whether it is "Fizz", "Buzz", "FizzBuzz", or "None"
+# If the number is a multiple of 3 (written as n|3 below) then the player must answer "Fizz", if n|3 and n|5 then they must answer "FizzBuzz"
+# n|3         => "Fizz"
+# n|5         => "Buzz"
+# n|3 AND n|5 => "FizzBuzz"
+# Otherwise   => None
+fizzbuzz:
+  enabled: true
+  # The minimum number that can be generated
+  # _Note: This has hard minimum of 0 since divisibility can get funky for n < 0_
+  min: 0
+  # The max number that can be generated
+  max: 100
